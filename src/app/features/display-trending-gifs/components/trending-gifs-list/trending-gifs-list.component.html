@@ -1,0 +1,47 @@
+<p-inputGroup class="search-bar">
+  <p-inputGroupAddon>
+    <i class="pi pi-search"></i>
+  </p-inputGroupAddon>
+
+  <input
+    style="width: 100%; height: 60px"
+    placeholder="Search GIFs"
+    type="text"
+    [(ngModel)]="searchValue"
+    pInputText
+  />
+  <button pButton (click)="search()" label="Search"></button>
+</p-inputGroup>
+
+<div class="gif-container" *ngIf="isLoading">
+  <div *ngFor="let i of [].constructor(18)">
+    <p-skeleton width="200px" height="200px"></p-skeleton>
+  </div>
+</div>
+
+<div
+  class="gif-container"
+  *ngIf="!isLoading"
+  infiniteScroll
+  [infiniteScrollDistance]="2"
+  [infiniteScrollThrottle]="50"
+  (scrolled)="onScroll()"
+>
+  <div *ngFor="let gif of trendingGifs">
+    <p-image
+      loading="lazy"
+      class="gif-image"
+      [src]="gif.images.fixed_width.webp"
+      [alt]="gif.title"
+    />
+  </div>
+  <div *ngFor="let i of [].constructor(6)">
+    <p-skeleton width="200px" height="200px" *ngIf="isScrolling"></p-skeleton>
+  </div>
+</div>
+
+<p *ngIf="trendingGifs.length === 0 && !isLoading">
+  Wow, such emptiness. Just like your soul.
+</p>
+
+<p-toast position="top-center"></p-toast>
