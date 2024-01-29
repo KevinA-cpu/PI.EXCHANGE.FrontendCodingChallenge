@@ -1,6 +1,10 @@
-.search-bar {
-  width: 100%;
-  margin-bottom: 1rem;
+.sticky {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+  background-color: var(--primary-color-text);
 }
 
 .gif-container {
@@ -15,4 +19,5 @@
 
 ::ng-deep .gif-image img {
   border-radius: 6px;
+  margin-bottom: 1rem;
 }
