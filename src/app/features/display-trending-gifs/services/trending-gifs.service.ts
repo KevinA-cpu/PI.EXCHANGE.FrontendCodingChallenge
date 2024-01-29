@@ -9,10 +9,13 @@ export class TrendingGifsService {
   private giphyApiUrl = `${environment.GIPHY_API_URL}/${environment.GIPHY_API_VERSION}/gifs`;
   private giphyApiKey = `?api_key=${environment.GIPHY_API_KEY}`;
   private offset = 50;
-  private searchOffset = 50;
   private limit = 6;
 
   constructor(private http: HttpClient) {}
+
+  resetOffset() {
+    this.offset = 50;
+  }
 
   getTrendingGifs() {
     const trendingUrl = `${this.giphyApiUrl}/trending${this.giphyApiKey}`;
@@ -31,8 +34,8 @@ export class TrendingGifsService {
   }
 
   searchMoreGifs(query: string) {
-    const searchUrl = `${this.giphyApiUrl}/search${this.giphyApiKey}&q=${query}&offset=${this.searchOffset}&limit=${this.limit}`;
-    this.searchOffset += this.limit;
+    const searchUrl = `${this.giphyApiUrl}/search${this.giphyApiKey}&q=${query}&offset=${this.offset}&limit=${this.limit}`;
+    this.offset += this.limit;
     return this.http.get(searchUrl);
   }
 }

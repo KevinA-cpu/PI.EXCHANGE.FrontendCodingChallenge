@@ -64,6 +64,7 @@ export class TrendingGifsListComponent implements OnInit {
 
   search() {
     this.isLoading = true;
+    this.trendingGifsService.resetOffset();
     if (this.searchValue == '') {
       this.trendingGifsService.getTrendingGifs().subscribe((response: any) => {
         this.trendingGifs = response.data;
