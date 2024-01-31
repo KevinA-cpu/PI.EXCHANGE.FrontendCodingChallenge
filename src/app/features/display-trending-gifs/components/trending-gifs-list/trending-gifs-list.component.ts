@@ -124,7 +124,6 @@ export class TrendingGifsListComponent implements OnInit {
   showDialog(gif: Gif) {
     this.isLoadingGif = true;
     this.selectedGif = gif;
-    console.log(this.selectedGif);
     setTimeout(() => {
       this.isLoadingGif = false;
     }, 500);

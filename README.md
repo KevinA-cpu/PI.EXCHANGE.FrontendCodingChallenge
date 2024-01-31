@@ -4,6 +4,15 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 
 ## Development server
 
+Create an environment file `src/environments/environment.development.ts` with the following content base on the `src/environments/environment.ts` file:
+
+```typescript
+production: false,
+GIPHY_API_KEY='YOUR_GIPHY_API_KEY',
+GIPHY_API_VERSION='YOUR_GIPHY_API_VERSION',
+GIPHY_API_URL='YOUR_GIPHY_API_URL',
+```
+
 Run `npm install` before `npm run start` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
 
 Or you can see the live demo [here](https://pi-exchange-frontend-coding-challenge.netlify.app/).
