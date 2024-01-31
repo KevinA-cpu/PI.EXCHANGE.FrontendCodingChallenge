@@ -21,6 +21,15 @@ jobs:
       - name: Install Dependencies
         run: npm ci
 
+      - name: Create environment.development.ts
+        run: |
+          echo "export const environment = {" >> src/environments/environment.development.ts
+          echo "  production: false," >> src/environments/environment.development.ts
+          echo "  GIPHY_API_KEY: '${{ secrets.GIPHY_API_KEY }}'," >> src/environments/environment.development.ts
+          echo "  GIPHY_API_VERSION: '${{ secrets.GIPHY_API_VERSION }}'," >> src/environments/environment.development.ts
+          echo "  GIPHY_API_URL: '${{ secrets.GIPHY_API_URL }}'" >> src/environments/environment.development.ts
+          echo "};" >> src/environments/environment.development.ts
+
       - name: Build project
         run: npm run build
 
