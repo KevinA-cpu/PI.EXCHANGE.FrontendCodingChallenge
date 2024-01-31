@@ -1,10 +1,12 @@
-# PIEXCHANGEFECODINGCHALLENGE
+# PI.EXCHANGE.FrontendCodingChallenge
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 17.1.0.
 
 ## Development server
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+Run `npm install` before `npm run start` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+
+Or you can see the live demo [here](https://pi-exchange-frontend-coding-challenge.netlify.app/).
 
 ## Code scaffolding
 

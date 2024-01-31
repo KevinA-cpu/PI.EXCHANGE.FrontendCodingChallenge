@@ -81,9 +81,6 @@ export class TrendingGifsListComponent implements OnInit {
     await this.loadMoreGifs();
   }
 
-  //TODO Gif Details
-  //TODO Git work flow and deployment
-
   private async loadGifs() {
     try {
       const response: any =
