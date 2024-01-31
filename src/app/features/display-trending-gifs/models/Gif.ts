@@ -17,11 +17,12 @@ export interface Gif {
   import_datetime: string;
   trending_datetime: string;
   images: {
-    hd: {
+    original: {
       height: string;
       width: string;
       mp4: string;
       mp4_size: string;
+      webp: string;
     };
     fixed_width: {
       height: string;
@@ -34,7 +35,7 @@ export interface Gif {
       webp: string;
     };
   };
-  user: {
+  user?: {
     avatar_url: string;
     banner_image: string;
     banner_url: string;

@@ -9,7 +9,7 @@ export class TrendingGifsService {
   private giphyApiUrl = `${environment.GIPHY_API_URL}/${environment.GIPHY_API_VERSION}/gifs`;
   private giphyApiKey = `?api_key=${environment.GIPHY_API_KEY}`;
   private offset = 50;
-  private limit = 6;
+  private limit = 12;
 
   constructor(private http: HttpClient) {}
 

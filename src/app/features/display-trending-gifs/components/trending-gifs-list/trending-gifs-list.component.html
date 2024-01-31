@@ -13,7 +13,7 @@
   <button pButton (click)="search()" label="Search"></button>
 </p-inputGroup>
 
-<div class="gif-container" *ngIf="isLoading">
+<div class="skeleton-container" *ngIf="isLoading">
   <div *ngFor="let i of [].constructor(12)">
     <p-skeleton width="200px" height="200px"></p-skeleton>
   </div>
@@ -23,20 +23,21 @@
   *ngIf="!isLoading"
   infinite-scroll
   [immediateCheck]="true"
-  [infiniteScrollDistance]="2"
+  [infiniteScrollDistance]="0"
   [infiniteScrollThrottle]="50"
   (scrolled)="onScroll()"
-  [options]="{ gutter: 16, columnWidth: 200, itemSelector: '.gif-image' }"
+  [options]="{ gutter: 16, columnWidth: 200, itemSelector: '.gif-container' }"
 >
   <div *ngFor="let gif of trendingGifs">
-    <p-image
-      masonryLazy
-      ngxMasonryItem
-      loading="lazy"
-      class="gif-image"
-      [src]="gif.images.fixed_width.webp"
-      [alt]="gif.title"
-    />
+    <div ngxMasonryItem class="gif-container" (click)="showDialog(gif)">
+      <p-image
+        masonryLazy
+        class="gif-image"
+        [src]="gif.images.fixed_width.webp"
+        [alt]="gif.title"
+      />
+      <i class="pi pi-eye eye-icon"></i>
+    </div>
   </div>
 </ngx-masonry>
 
@@ -46,10 +47,85 @@
 
 <div style="padding-bottom: 20px">
   <p-progressBar
+    *ngIf="isScrolling"
     mode="indeterminate"
     [style]="{ height: '6px' }"
-    *ngIf="isScrolling"
   ></p-progressBar>
 </div>
 
 <p-toast position="top-center"></p-toast>
+
+<p-dialog
+  *ngIf="selectedGif"
+  header="{{ selectedGif.title }} - Rated {{ selectedGif.rating | uppercase }}"
+  [(visible)]="displayDialog"
+  [style]="{ width: '50vw' }"
+  [modal]="true"
+  [maximizable]="true"
+  [draggable]="false"
+  [resizable]="false"
+>
+  <p-progressSpinner
+    class="center-modal-content"
+    *ngIf="isLoadingGif; else gifTemplate"
+  ></p-progressSpinner>
+
+  <ng-template #gifTemplate>
+    <div class="center-modal-content">
+      <div style="margin-right: 1rem">
+        <div class="user-profile">
+          <p-avatar
+            [image]="
+              selectedGif.user
+                ? selectedGif.user.avatar_url
+                : 'https://picsum.photos/64'
+            "
+            size="xlarge"
+          ></p-avatar>
+          <div style="margin-left: 1rem">
+            <p style="margin: 0; font-weight: bold">
+              {{
+                selectedGif.user
+                  ? selectedGif.user.display_name
+                  : 'Unknown User'
+              }}
+            </p>
+            <div style="display: flex; align-items: center">
+              <h5
+                style="
+                  margin: 0;
+                  font-weight: normal;
+                  color: var(--text-color-secondary);
+                "
+              >
+                {{
+                  selectedGif.user
+                    ? '@' + selectedGif.user.username
+                    : '@unknownuser'
+                }}
+              </h5>
+              <i
+                *ngIf="selectedGif.user?.is_verified"
+                class="pi pi-verified"
+                style="margin-left: 0.3rem"
+              ></i>
+            </div>
+          </div>
+        </div>
+        <p>{{ selectedGif.user?.description }}</p>
+
+        <a
+          *ngIf="selectedGif.user?.instagram_url"
+          class="pi pi-instagram"
+          [href]="selectedGif.user?.instagram_url"
+        ></a>
+      </div>
+
+      <p-image
+        loading="lazy"
+        [src]="selectedGif.images.original.webp"
+        [alt]="selectedGif.title"
+      />
+    </div>
+  </ng-template>
+</p-dialog>
